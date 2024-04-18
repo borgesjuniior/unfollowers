@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:bundle": "webpack --config webpack.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack-cli": "^5.1.4"
   }
 }
