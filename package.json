@@ -10,6 +10,8 @@
     "@types/node": "^16.18.96",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
+    "axios": "^1.6.8",
+    "lucide-react": "^0.371.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -42,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "tailwindcss": "^3.4.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-cli": "^5.1.4"

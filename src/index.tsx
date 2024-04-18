@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 // document.title = 'Unfollowers';
-// document.body.innerHTML = '<div id="root"></div>';
+document.body.innerHTML = '<div id="root" class=" text-zinc-50"></div>';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
