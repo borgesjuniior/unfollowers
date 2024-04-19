@@ -1,8 +1,12 @@
 import './styles.css';
 
-function Spinner() {
+interface IPropsSpinner {
+  styles?: string;
+}
+
+function Spinner({ styles }: IPropsSpinner) {
   return (
-    <svg className="spinner" viewBox="0 0 50 50">
+    <svg className={`spinner ${styles}`} viewBox="0 0 50 50">
       <circle
         className="path"
         cx="25"

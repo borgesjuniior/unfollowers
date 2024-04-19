@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { UserRoundX } from 'lucide-react';
+import { UserRoundX, CircleX } from 'lucide-react';
 import { findAll } from './services/users';
 import Spinner from './components/Spinner';
-import { IUser } from './components/types';
+import { IUser } from './types';
 import Card from './components/Card';
 
 import './styles/global.css';
@@ -21,12 +21,12 @@ function App() {
     let max_id = '';
 
     while (shouldFetch) {
-      const data = await findAll({
+      const response = await findAll({
         friendship,
         max_id,
       });
 
-      const { next_max_id, big_list, users } = data;
+      const { next_max_id, big_list, users } = response.data;
 
       max_id = next_max_id;
       allUsers.push(...users);
@@ -37,27 +37,38 @@ function App() {
 
   async function getUnfollowers() {
     setLoading(true);
+    try {
+      const [following, followers] = await Promise.all([
+        getUsers('following'),
+        getUsers('followers'),
+      ]);
 
-    const [following, followers] = await Promise.all([
-      getUsers('following'),
-      getUsers('followers'),
-    ]);
+      if (!following.length) {
+        console.log("you don't follow any accounts");
+        return;
+      }
 
-    if (!following.length) {
-      console.log("you don't follow any accounts");
-      return;
+      const unfollowers = following.filter((follower) => {
+        return !followers.find((f) => f.username === follower.username);
+      });
+
+      setUnFollowers(unfollowers);
+    } catch (error) {
+      throw Error('Ocorreu um erro!');
+    } finally {
+      setLoading(false);
     }
-
-    const unfollowers = following.filter((follower) => {
-      return !followers.find((f) => f.username === follower.username);
-    });
-
-    setLoading(false);
-    setUnFollowers(unfollowers);
   }
+
+  const handleReload = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="h-screen flex">
+      <button className="absolute right-12 top-8">
+        <CircleX onClick={handleReload} />
+      </button>
       <aside className="w-64 bg-zinc-950 p-6">
         <nav className="space-y-4 mt-5">
           <a
@@ -81,7 +92,9 @@ function App() {
               <Spinner />
             </div>
           ) : unfollowers.length ? (
-            unfollowers.map((user) => <Card user={user} />)
+            unfollowers.map((user) => (
+              <Card user={user} setUnFollowers={setUnFollowers} />
+            ))
           ) : (
             <span className="font-semibold text-base mt-10">
               Todos os perfis que você segue estão te seguindo de volta.
