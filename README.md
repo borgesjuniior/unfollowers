@@ -15,11 +15,7 @@ Para usar este script, siga estas etapas simples:
 
 1. Faça login em sua conta do Instagram.
 2. Abra o console do desenvolvedor no seu navegador. Isso pode ser feito pressionando `Ctrl + Shift + J` (Windows/Linux) ou `Cmd + Option + J` (Mac) ou clicando com o botão direito do mouse em qualquer lugar da página, selecionando "Inspecionar" e indo para a guia "Console".
-3. Cole o código do script a seguir no console e pressione Enter. (Caso não esteja conseguindo colar, digite "allow pasting" pressione enter e tente colar novamente)
-
-```javascript
-fetch("https://raw.githubusercontent.com/firefliesout/unfollowers-bundle/main/bundle.min.js").then(e=>e.text()).then(text=>eval(text));
-```
+3. Cole o código completo do script que pode ser encontrado aqui no console e pressione Enter. (Caso não esteja conseguindo colar, digite "allow pasting" pressione enter e tente colar novamente)
 
 ## Contribuição
 
