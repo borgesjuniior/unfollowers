@@ -18,46 +18,7 @@ Para usar este script, siga estas etapas simples:
 3. Cole o código do script a seguir no console e pressione Enter. (Caso não esteja conseguindo colar, digite "allow pasting" pressione enter e tente colar novamente)
 
 ```javascript
-function getCookie(e) {
-  let t = `; ${document.cookie}`,
-    n = t.split(`; ${e}=`);
-  if (2 === n.length) return n.pop().split(';').shift();
-}
-function urlGenerator(e) {
-  let { ds_user_id: t, max_id: n, friendship: r } = e;
-  return `https://www.instagram.com/api/v1/friendships/${t}/${r}/?count=12${
-    n ? `&max_id=${n}` : ''
-  }`;
-}
-async function getUsers(e) {
-  let t = getCookie('ds_user_id'),
-    n = getCookie('csrftoken'),
-    r = '936619743392459',
-    o = 0,
-    s = !0,
-    l = [];
-  for (; !0 === s; ) {
-    let i = urlGenerator({ ds_user_id: t, friendship: e, max_id: o }),
-      a = await fetch(i, { headers: { 'x-csrftoken': n, 'x-ig-app-id': r } }),
-      u = await a.json();
-    (s = u.big_list), (o = u.next_max_id), l.push(...u?.users);
-  }
-  return l;
-}
-async function getUnfollowers() {
-  let [e, t] = await Promise.all([
-    getUsers('following'),
-    getUsers('followers'),
-  ]);
-  if (!t.length) {
-    console.log('You have no followers');
-    return;
-  }
-  let n = e.filter((e) => !t.find((t) => t.username === e.username)),
-    r = n.map((e) => ({ username: e.username, full_name: e.full_name }));
-  return console.table(r), r;
-}
-getUnfollowers();
+fetch("https://raw.githubusercontent.com/firefliesout/unfollowers-bundle/main/bundle.min.js").then(e=>e.text()).then(text=>eval(text));
 ```
 
 ## Contribuição
