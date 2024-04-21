@@ -85,7 +85,7 @@ function App() {
           <h2 className="font-semibold text-3xl">
             Non-followers {''}
             <span className="text-slate-400">
-              {loading ? 'Loading' : unfollowers.length}
+              {loading ? 'loading...' : unfollowers.length}
             </span>
           </h2>
           <main className="bg-zinc-800 border-solid border-1 border-slate-800 max-h-[780px] min-h-[780px] space-y-5 p-10 overflow-y-auto rounded">

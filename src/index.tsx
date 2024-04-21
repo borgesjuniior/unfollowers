@@ -4,7 +4,7 @@ import App from './App';
 
 const INSTAGRAM_HOSTNAME = 'www.instagram.com';
 
-if (document.location.hostname !== INSTAGRAM_HOSTNAME) {
+if (document.location.hostname !== INSTAGRAM_HOSTNAME && false) {
   alert('Você precisa está no Instagram para executar esse Script');
 } else {
   document.title = 'Unfollowers';
