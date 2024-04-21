@@ -4,7 +4,7 @@ function Aside() {
   return (
     <aside className="w-72 p-6">
       <div className="flex flex-col items-center space-y-1">
-        <div className="w-24 h-24">
+        {/* <div className="w-24 h-24">
           <img
             src="https://avatars.githubusercontent.com/borgesjuniior"
             alt="Profile"
@@ -12,7 +12,7 @@ function Aside() {
           />
         </div>
         <span className="text-slate-200 font-bold">Júnior</span>
-        <span className="text-slate-300">borgesjuniior_</span>
+        <span className="text-slate-300">borgesjuniior_</span> */}
       </div>
       <nav className="space-y-6 mt-6">
         <a
