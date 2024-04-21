@@ -19,6 +19,13 @@ interface IFriendshipsDestroyResponse {
   status: string;
 }
 
+interface IUserDetails {
+  data: {
+    user: IUser;
+    status: string;
+  };
+}
+
 function urlGenerator(params: IParams) {
   const { ds_user_id, max_id, friendship } = params;
 
@@ -42,23 +49,31 @@ export async function unfollowUser(
   return api.post<IFriendshipsDestroyResponse>(url);
 }
 
-async function findAllMock(): Promise<any> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          big_list: false,
-          users: [
-            {
-              id: '1',
-              username: 'JohnDoe',
-              full_name: 'John Doe',
-              profile_pic_url: '',
-            },
-          ],
-          next_max_id: '12',
-        },
-      });
-    }, 2 * 1000);
-  });
+export async function getUserDetails(
+  username: string
+): Promise<AxiosResponse<IUserDetails>> {
+  const url = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${username}`;
+  return api.get<IUserDetails>(url);
 }
+
+// async function findAllMock(): Promise<any> {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve({
+//         data: {
+//           big_list: false,
+//           users: [
+//             {
+//               id: '1',
+//               username: 'JohnDoe',
+//               full_name: 'John Doe',
+//               profile_pic_url:
+//                 'https://avatars.githubusercontent.com/borgesjuniior',
+//             },
+//           ],
+//           next_max_id: '12',
+//         },
+//       });
+//     }, 2 * 1000);
+//   });
+// }

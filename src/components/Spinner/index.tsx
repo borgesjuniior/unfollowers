@@ -1,21 +1,23 @@
 import './styles.css';
 
-interface IPropsSpinner {
-  styles?: string;
+interface ISpinner {
+  size?: string;
 }
 
-function Spinner({ styles }: IPropsSpinner) {
+function Spinner({ size = '20' }: ISpinner) {
   return (
-    <svg className={`spinner ${styles}`} viewBox="0 0 50 50">
-      <circle
-        className="path"
-        cx="25"
-        cy="25"
-        r="20"
-        fill="none"
-        strokeWidth="6"
-      ></circle>
-    </svg>
+    <div className="h-full flex items-center justify-center">
+      <svg className="spinner" viewBox="0 0 50 50">
+        <circle
+          className="path"
+          cx="25"
+          cy="25"
+          r={size}
+          fill="none"
+          strokeWidth="3"
+        ></circle>
+      </svg>
+    </div>
   );
 }
 

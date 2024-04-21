@@ -1,28 +1,28 @@
-import { UserMinus } from 'lucide-react';
+import { X } from 'lucide-react';
 import { IUser } from '../../types';
-import Spinner from '../Spinner';
 import { Dispatch, useState } from 'react';
 import { unfollowUser } from '../../services/users';
+import Spinner from '../Spinner';
 
-interface IProps {
+interface ICard {
   user: IUser;
   setUnFollowers: Dispatch<React.SetStateAction<IUser[]>>;
 }
 
-function Card({ user, setUnFollowers }: IProps) {
+function Card({ user, setUnFollowers }: ICard) {
   const [loading, setLoading] = useState(false);
 
-  async function handleUnfollowUser() {
+  async function handleRemoveUser(userId: string) {
     setLoading(true);
 
     try {
-      const response = await unfollowUser(user.id);
+      const response = await unfollowUser(userId);
       if (response.status === 200) {
-        setUnFollowers((prev) => prev.filter((item) => item.id !== user.id));
+        setUnFollowers((prev) => prev.filter((item) => item.id !== userId));
         return;
       }
     } catch (error) {
-      throw Error('Ocorreu um erro!');
+      console.error('An error has occurred');
     } finally {
       setLoading(false);
     }
@@ -31,23 +31,29 @@ function Card({ user, setUnFollowers }: IProps) {
   return (
     <div
       key={user.id}
-      className="bg-zinc-950 flex flex-1 justify-between p-4 h-20 rounded"
+      className="bg-zinc-900 flex items-center justify-between p-4 rounded-lg"
     >
-      <div className="flex items-center gap-4">
+      <div className="w-10 flex items-center space-x-4">
         <img
-          className="w-10 h-10 rounded-full"
+          className="rounded-full"
           src={user.profile_pic_url}
-          alt="Profile picture"
+          alt="User Icon"
         />
-        <span>{user.username}</span>
+        <span className="text-slate-100 font-semibold text-xl">
+          {user.username}
+        </span>
       </div>
-      <button
-        className="flex items-center gap-4 text-red-500 hover:text-red-600"
-        onClick={handleUnfollowUser}
-      >
-        Deixar de seguir
-        {loading ? <Spinner styles="w-6 text-lime-500" /> : <UserMinus />}
-      </button>
+      <div className="flex space-x-2">
+        {loading ? (
+          <div className="max-w-10 max-h-10">
+            <Spinner size="12" />
+          </div>
+        ) : (
+          <button onClick={() => handleRemoveUser(user.id)}>
+            <X width={28} height={28} color="#f87171" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
