@@ -12,7 +12,7 @@ function Header() {
         <h1 className="text-slate-50 font-semibold text-xl">Unfollowers</h1>
       </div>
       <button
-        className="bg-red-500 flex items-center justify-center rounded-full w-9 h-9"
+        className="bg-red-500 hover:bg-red-600 transition-all duration-30 flex items-center justify-center rounded-full w-9 h-9"
         onClick={handleReload}
       >
         <LogOut />

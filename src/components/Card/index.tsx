@@ -4,6 +4,8 @@ import { Dispatch, useState } from 'react';
 import { unfollowUser } from '../../services/users';
 import Spinner from '../Spinner';
 
+import './styles.css';
+
 interface ICard {
   user: IUser;
   setUnFollowers: Dispatch<React.SetStateAction<IUser[]>>;
@@ -31,7 +33,7 @@ function Card({ user, setUnFollowers }: ICard) {
   return (
     <div
       key={user.id}
-      className="bg-zinc-900 flex items-center justify-between p-4 rounded-lg"
+      className="bg-zinc-900 flex items-center justify-between p-4 rounded-lg hover-transition"
     >
       <div className="w-10 flex items-center space-x-4">
         <img
@@ -49,9 +51,14 @@ function Card({ user, setUnFollowers }: ICard) {
             <Spinner size="12" />
           </div>
         ) : (
-          <button onClick={() => handleRemoveUser(user.id)}>
-            <X width={28} height={28} color="#f87171" />
-          </button>
+          <>
+            {/* <button onClick={() => handleRemoveUser(user.id)} title="Favorite">
+              <Star width={20} height={20} color="#fcd34d" />
+            </button> */}
+            <button onClick={() => handleRemoveUser(user.id)} title="Unfollow">
+              <X width={28} height={28} color="#f87171" />
+            </button>
+          </>
         )}
       </div>
     </div>
