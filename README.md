@@ -5,8 +5,8 @@ Unfollowers é um script simples desenvolvido para ajudá-lo a gerenciar sua con
 ## Funcionalidades
 
 - **Listagem de Não Seguidores**: Este script permite que você obtenha uma lista de todas as pessoas que você segue no Instagram, mas que não estão te seguindo de volta.
-- **Listagem de Seguidores Não Seguidos** (Em desenvolvimento): Em breve, você poderá visualizar uma lista das pessoas que te seguem, mas que você não está seguindo de volta.
-- **Deixar de Seguir Não Seguidores** (Em desenvolvimento): Em breve, você poderá utilizar o script para deixar de seguir automaticamente todas as pessoas que não estão te seguindo de volta.
+- **Deixar de Seguir Não Seguidores**: Você poderá deixar de seguir automaticamente todas as pessoas que não estão te seguindo de volta.
+- **Favoritar usuários**: Você poderá favoritar usuários que você não quer deixar de seguir
 - **Interface** Interface amigável para que você não precise visualizar os usuários no console do navegador.
 
 ## Como Usar
