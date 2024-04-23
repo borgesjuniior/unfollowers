@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { findAll } from './services/users';
+import { findAll, unfollowUser } from './services/users';
 import { IUser } from './types';
 import Card from './components/Card';
 import Header from './components/Header';
@@ -11,6 +11,7 @@ import './styles/global.css';
 function App() {
   const [unfollowers, setUnFollowers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isUnfollowingAll, setIsUnfollowingAll] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const getUnfollowers = useCallback(async () => {
@@ -21,9 +22,11 @@ function App() {
         getUsers('followers'),
       ]);
 
-      const unfollowers = following.filter((follower) => {
-        return !followers.find((f) => f.username === follower.username);
-      });
+      const unfollowers = following
+        .filter(
+          (follower) => !followers.some((f) => f.username === follower.username)
+        )
+        .map((f) => ({ ...f, favorite: false }));
 
       setUnFollowers(unfollowers);
     } catch (error) {
@@ -66,11 +69,52 @@ function App() {
         </span>
       );
     } else {
-      return unfollowers.map((user) => (
-        <Card key={user.id} user={user} setUnFollowers={setUnFollowers} />
+      return unfollowers.map((user, index) => (
+        <Card
+          key={user.id}
+          index={index}
+          user={user}
+          setUnFollowers={setUnFollowers}
+        />
       ));
     }
   };
+
+  async function handleUnfollowAll() {
+    setIsUnfollowingAll(true);
+
+    const unfavoriteUsers = unfollowers.filter(
+      (unfollower) => !unfollower.favorite
+    );
+
+    try {
+      const iterations = Math.min(8, unfavoriteUsers.length);
+
+      for (let index = 0; index < iterations; index++) {
+        const { id } = unfavoriteUsers[index];
+
+        const response = await unfollowUser(id);
+
+        if (response.status === 200) {
+          setUnFollowers((prevState) =>
+            prevState.filter((item) => item.id !== id)
+          );
+        } else {
+          break;
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsUnfollowingAll(false);
+    }
+  }
+
+  function handleUnmarkAll() {
+    setUnFollowers((prevState) =>
+      prevState.map((item) => ({ ...item, favorite: false }))
+    );
+  }
 
   useEffect(() => {
     getUnfollowers();
@@ -81,13 +125,33 @@ function App() {
       <Header />
       <div className="flex">
         <Aside />
-        <div className="flex flex-1 flex-col mx-8 space-y-6">
-          <h2 className="font-semibold text-3xl">
-            Non-followers {''}
-            <span className="text-slate-400">
-              {loading ? 'loading...' : unfollowers.length}
-            </span>
-          </h2>
+        <div className="flex flex-1 flex-col mx-8 space-y-4">
+          <div className="flex justify-between">
+            <h2 className="font-semibold text-3xl">
+              Non-followers {''}
+              <span className="text-slate-400">
+                {loading ? 'loading...' : unfollowers.length}
+              </span>
+            </h2>
+            <div className="flex space-x-2">
+              <button
+                className="bg-amber-300 hover:bg-amber-400 w-24 h-8 px-2 rounded font-semibold"
+                onClick={handleUnmarkAll}
+              >
+                <span className="text-slate-800">Unmark all</span>
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-600 w-24 h-8 px-2 rounded font-semibold"
+                onClick={handleUnfollowAll}
+              >
+                {isUnfollowingAll ? (
+                  <Spinner size="5" />
+                ) : (
+                  <span>Unfollow 8</span>
+                )}
+              </button>
+            </div>
+          </div>
           <main className="bg-zinc-800 border-solid border-1 border-slate-800 max-h-[780px] min-h-[780px] space-y-5 p-10 overflow-y-auto rounded">
             {isError ? (
               <span className="text-xl">

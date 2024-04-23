@@ -3,6 +3,7 @@ export interface IUser {
   full_name: string;
   profile_pic_url: string;
   username: string;
+  favorite: boolean;
 }
 
 export interface IParams {

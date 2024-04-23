@@ -6,7 +6,7 @@
 }
 
 .spinner .path {
-  stroke: #00a33f;
+  stroke: #bbf7d0;
   stroke-linecap: round;
   animation: spinner-path 1.5s ease-in-out infinite;
 }

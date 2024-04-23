@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X, Star } from 'lucide-react';
 import { IUser } from '../../types';
 import { Dispatch, useState } from 'react';
 import { unfollowUser } from '../../services/users';
@@ -8,10 +8,11 @@ import './styles.css';
 
 interface ICard {
   user: IUser;
+  index: number;
   setUnFollowers: Dispatch<React.SetStateAction<IUser[]>>;
 }
 
-function Card({ user, setUnFollowers }: ICard) {
+function Card({ user, index, setUnFollowers }: ICard) {
   const [loading, setLoading] = useState(false);
 
   async function handleRemoveUser(userId: string) {
@@ -20,7 +21,9 @@ function Card({ user, setUnFollowers }: ICard) {
     try {
       const response = await unfollowUser(userId);
       if (response.status === 200) {
-        setUnFollowers((prev) => prev.filter((item) => item.id !== userId));
+        setUnFollowers((prevState) =>
+          prevState.filter((item) => item.id !== userId)
+        );
         return;
       }
     } catch (error) {
@@ -28,6 +31,17 @@ function Card({ user, setUnFollowers }: ICard) {
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleFavoriteUser(index: number) {
+    setUnFollowers((prevState) => {
+      const newState = [...prevState];
+      newState[index] = {
+        ...prevState[index],
+        favorite: !prevState[index].favorite,
+      };
+      return newState;
+    });
   }
 
   return (
@@ -45,20 +59,27 @@ function Card({ user, setUnFollowers }: ICard) {
           {user.username}
         </span>
       </div>
-      <div className="flex space-x-2">
+      <div className="flex space-x-1">
+        <div className="w-8 flex items-center">
+          <button onClick={() => handleFavoriteUser(index)} title="Favorite">
+            <Star
+              width={20}
+              height={20}
+              color="#fcd34d"
+              fill={user.favorite ? '#fcd34d' : ''}
+            />
+          </button>
+        </div>
         {loading ? (
-          <div className="max-w-10 max-h-10">
+          <div className="w-8 h-7">
             <Spinner size="12" />
           </div>
         ) : (
-          <>
-            {/* <button onClick={() => handleRemoveUser(user.id)} title="Favorite">
-              <Star width={20} height={20} color="#fcd34d" />
-            </button> */}
+          <div className="w-8 flex items-center">
             <button onClick={() => handleRemoveUser(user.id)} title="Unfollow">
-              <X width={28} height={28} color="#f87171" />
+              <X width={28} height={28} color="#ef4444" />
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>
