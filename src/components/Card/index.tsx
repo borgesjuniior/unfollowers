@@ -20,6 +20,7 @@ function Card({ user, index, setUnFollowers }: ICard) {
 
     try {
       const response = await unfollowUser(userId);
+
       if (response.status === 200) {
         setUnFollowers((prevState) =>
           prevState.filter((item) => item.id !== userId)
@@ -45,10 +46,7 @@ function Card({ user, index, setUnFollowers }: ICard) {
   }
 
   return (
-    <div
-      key={user.id}
-      className="bg-zinc-900 flex items-center justify-between p-4 rounded-lg hover-transition"
-    >
+    <div className="bg-zinc-900 flex items-center justify-between p-4 rounded-lg hover-transition">
       <div className="w-10 flex items-center space-x-4">
         <img
           className="rounded-full"

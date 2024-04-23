@@ -88,7 +88,7 @@ function App() {
     );
 
     try {
-      const iterations = Math.min(8, unfavoriteUsers.length);
+      const iterations = Math.min(9, unfavoriteUsers.length);
 
       for (let index = 0; index < iterations; index++) {
         const { id } = unfavoriteUsers[index];
@@ -145,14 +145,14 @@ function App() {
                 onClick={handleUnfollowAll}
               >
                 {isUnfollowingAll ? (
-                  <Spinner size="5" />
+                  <Spinner size="8" />
                 ) : (
-                  <span>Unfollow 8</span>
+                  <span>Unfollow 9</span>
                 )}
               </button>
             </div>
           </div>
-          <main className="bg-zinc-800 border-solid border-1 border-slate-800 max-h-[780px] min-h-[780px] space-y-5 p-10 overflow-y-auto rounded">
+          <main className="bg-zinc-800 border-solid border-1 border-slate-800 max-h-[774px] min-h-[774px] space-y-3 px-6 py-4 overflow-y-auto rounded">
             {isError ? (
               <span className="text-xl">
                 An error occurred when trying to search for users
