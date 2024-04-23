@@ -84,7 +84,7 @@ function App() {
     setIsUnfollowingAll(true);
 
     const unfavoriteUsers = unfollowers.filter(
-      (unfollower) => !unfollower.favorite
+      (unfollower) => !unfollower.is_favorite
     );
 
     try {
@@ -112,7 +112,7 @@ function App() {
 
   function handleUnmarkAll() {
     setUnFollowers((prevState) =>
-      prevState.map((item) => ({ ...item, favorite: false }))
+      prevState.map((item) => ({ ...item, is_favorite: false }))
     );
   }
 
@@ -138,7 +138,7 @@ function App() {
                 className="bg-amber-300 hover:bg-amber-400 w-24 h-8 px-2 rounded font-semibold"
                 onClick={handleUnmarkAll}
               >
-                <span className="text-slate-800">Unmark all</span>
+                <span className="text-slate-700">Unmark all</span>
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 w-24 h-8 px-2 rounded font-semibold"

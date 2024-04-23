@@ -1,4 +1,4 @@
-import { X, Star } from 'lucide-react';
+import { X, Star, BadgeCheck } from 'lucide-react';
 import { IUser } from '../../types';
 import { Dispatch, useState } from 'react';
 import { unfollowUser } from '../../services/users';
@@ -38,7 +38,7 @@ function Card({ user, index, setUnFollowers }: ICard) {
       const newState = [...prevState];
       newState[index] = {
         ...prevState[index],
-        favorite: !prevState[index].favorite,
+        is_favorite: !prevState[index].is_favorite,
       };
       return newState;
     });
@@ -55,9 +55,10 @@ function Card({ user, index, setUnFollowers }: ICard) {
           src={user.profile_pic_url}
           alt="User Icon"
         />
-        <span className="text-slate-100 font-semibold text-xl">
-          {user.username}
-        </span>
+        <div className="flex items-center space-x-1 text-slate-100 font-semibold text-xl">
+          <span>{user.username}</span>{' '}
+          {user.is_verified && <BadgeCheck stroke="#0f172a" fill="#0866ff" />}
+        </div>
       </div>
       <div className="flex space-x-1">
         <div className="w-8 flex items-center">
@@ -66,7 +67,7 @@ function Card({ user, index, setUnFollowers }: ICard) {
               width={20}
               height={20}
               color="#fcd34d"
-              fill={user.favorite ? '#fcd34d' : ''}
+              fill={user.is_favorite ? '#fcd34d' : ''}
             />
           </button>
         </div>

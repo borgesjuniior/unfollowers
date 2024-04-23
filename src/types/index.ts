@@ -3,7 +3,8 @@ export interface IUser {
   full_name: string;
   profile_pic_url: string;
   username: string;
-  favorite: boolean;
+  is_verified: boolean;
+  is_favorite: boolean;
 }
 
 export interface IParams {
