@@ -17,6 +17,11 @@ Para usar este script, siga estas etapas simples:
 2. Abra o console do desenvolvedor no seu navegador. Isso pode ser feito pressionando `Ctrl + Shift + J` (Windows/Linux) ou `Cmd + Option + J` (Mac) ou clicando com o botão direito do mouse em qualquer lugar da página, selecionando "Inspecionar" e indo para a guia "Console".
 3. Cole o código completo do script que pode ser encontrado [aqui](https://raw.githubusercontent.com/firefliesout/unfollowers-bundle/main/bundle.min.js) no console e pressione Enter. (Caso não esteja conseguindo colar, digite "allow pasting" pressione enter e tente colar novamente)
 
+## Preview
+<img src="https://github.com/borgesjuniior/unfollowers/raw/main/github/main_list.png" alt="Main List" width="500"> 
+<img src="https://github.com/borgesjuniior/unfollowers/raw/main/github/favorite_items.png" alt="Favorite Items" width="500"> 
+<img src="https://github.com/borgesjuniior/unfollowers/raw/main/github/loading_screen.png" alt="Loading Screen" width="500">
+
 ## Contribuição
 
 Contribuições são bem-vindas! Se você tiver ideias para melhorar este script ou encontrar problemas, sinta-se à vontade para abrir uma issue ou enviar um pull request.
